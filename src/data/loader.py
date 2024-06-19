@@ -47,6 +47,11 @@ def rename_exang(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def rename_fbs(df: pd.DataFrame) -> pd.DataFrame:
+    df[DataSchema.fasting_blood_sugar] = df[DataSchema.fasting_blood_sugar].map(
+        {1: '>120 mg/dl', 0: "<120 mg/dl"})
+    return df
+
 def add_age_groups(df: pd.DataFrame) -> pd.DataFrame:
     df[DataSchema.age_group] = pd.cut(df[DataSchema.age], bins=[20, 30, 40, 50, 60, 70, 80])
     
@@ -69,6 +74,7 @@ def load_data(path: str) -> pd.DataFrame:
         rename_gender,
         rename_target,
         add_age_groups,
-        rename_exang
+        rename_exang,
+        rename_fbs
     )
     return preprocessor(data)

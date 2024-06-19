@@ -15,3 +15,11 @@ HEART_RATE_AGE = "heart-rate-age"
 OLDPEAK_AGE = "oldpeak-age"
 
 ANGINA_TARGET = "angina-target"
+
+SLOPE_TARGET = "slope-target"
+
+FBS_TARGET = "fbs-target"
+
+FBS_THALACH = "fbs-thalach"
+
+RCG_TARGET = "rcg-target"

@@ -56,14 +56,13 @@ def plot_disease_dist(ds: DataSource) -> go.Figure:
 
 
 def plot_age_target(ds: DataSource) -> go.Figure:
-    i = ds.df[DataSchema.age_group].unique()
-    i.sort()
+
     fig = px.histogram(ds.df,
                        x=DataSchema.age_group,
                        color=DataSchema.target,
                        histfunc="count",
                        category_orders={
-                           "age_group": i
+                           "age_group": ds.sorted_age_groups()
                        },
                        labels={
                            "age_group": "Age",
@@ -71,6 +70,7 @@ def plot_age_target(ds: DataSource) -> go.Figure:
                        },
                        title="Age to target"
                        )
+
     return fig
 
 
@@ -92,14 +92,13 @@ def plot_gender_cp(ds: DataSource) -> go.Figure:
 
 
 def plot_chol_target(ds: DataSource) -> go.Figure:
-    fig = px.histogram(ds.df,
-                       x=DataSchema.target,
-                       y=DataSchema.cholestrol,
-                       barmode="group",
-                       histfunc="avg",
-                       title="Target - Cholestrol"
-                       )
-    fig.update_layout(xaxis_title="Target", yaxis_title="Average Cholestrol")
+    
+    fig = px.violin(ds.df,
+           x=DataSchema.target,
+           y=DataSchema.cholestrol,
+           title="Target - Cholestrol"
+           )
+    fig.update_layout(xaxis_title="Target", yaxis_title="Cholestrol")
     return fig  # type: ignore
 
 
@@ -112,27 +111,30 @@ def plot_heart_rate_age(ds: DataSource) -> go.Figure:
                      title="Age - Heart Rate"
                      )
     fig.update_layout(xaxis_title="Age", yaxis_title="Max Heart Rate")
-    
+
     return fig
 
 
 def plot_oldpeak_age(ds: DataSource) -> go.Figure:
-    i = ds.df[DataSchema.age_group].unique()
-    i.sort()
     fig = px.histogram(ds.df,
                        x=DataSchema.age_group,
                        y=DataSchema.oldpeak,
 
                        histfunc="avg",
                        category_orders={
-                           "age_group": i
+                           "age_group": ds.sorted_age_groups()
+
+                       },
+                       labels={
+                           "age_group": "Age"
                        }
                        )
     return fig
 
 
 def plot_angina_target(ds: DataSource) -> go.Figure:
-    z = ds.df.groupby(by=[DataSchema.excercise_angina, DataSchema.target]).count()["index"]
+    z = ds.df.groupby(by=[DataSchema.excercise_angina,
+                      DataSchema.target]).count()["index"]
     z = z.to_numpy().reshape((len(ds.exang), len(ds.target)))
     fig = go.Figure(data=[go.Heatmap(
         x=ds.target,
@@ -140,6 +142,88 @@ def plot_angina_target(ds: DataSource) -> go.Figure:
         z=z,
         colorscale="Greens"
     )])
-    fig.update_layout(xaxis_title='Infected',yaxis_title= "Exercise induced angina")
+    fig.update_layout(xaxis_title='Target',
+                      yaxis_title="Exercise induced angina")
     return fig
 
+
+def plot_slope_target(ds: DataSource) -> go.Figure:
+
+    fig = px.histogram(ds.df, x=DataSchema.slope,
+                       color=DataSchema.target,
+                       histfunc="count",
+                       barmode="group",
+                       color_discrete_sequence=px.colors.qualitative.Pastel)
+    fig.update_layout(
+        xaxis_title='Slope',
+        yaxis_title="No. of patients"
+    )
+
+    return fig
+
+
+def plot_fbs_target(ds: DataSource) -> go.Figure:
+
+    fig = px.histogram(ds.df,
+                       x=DataSchema.fasting_blood_sugar,
+                       color=DataSchema.target,
+                       histfunc="count",
+                       barmode="group",
+                       color_discrete_sequence=px.colors.qualitative.Safe,
+                       title="Fasting Blood Sugar - Patients"
+                       )
+    fig.update_layout(
+        xaxis_title="Fasting Blood Sugar",
+        yaxis_title="No. of patients"
+    )
+
+    return fig
+
+
+def plot_fbs_thalach(ds: DataSource) -> go.Figure:
+
+    fig = px.box(ds.df,
+                 x=DataSchema.fasting_blood_sugar,
+                 y=DataSchema.max_heart_rate,
+                 color_discrete_sequence=px.colors.qualitative.Vivid,
+                 title="Fasting Blood Sugar - Max Heart Rate"
+                 )
+    fig.update_layout(
+        xaxis_title="Fasting Blood Sugar",
+        yaxis_title="Max Heart Rate"
+    )
+
+    return fig
+
+
+def plot_rcg_target(ds: DataSource) -> go.Figure:
+
+    fig = px.histogram(ds.df,
+                 x=DataSchema.resting_electrocardiographic_results,
+                 color=DataSchema.target,
+                 color_discrete_sequence=px.colors.qualitative.Vivid,
+                 title="resting ECG - Target",
+                 barmode="group"
+                 )
+    fig.update_layout(
+        xaxis_title="Resting ECG",
+        yaxis_title="No. of patients"
+    )
+
+    return fig
+
+
+def plot_rcg_thalach(ds: DataSource) -> go.Figure:
+
+    fig = px.violin(ds.df,
+                    x=DataSchema.resting_electrocardiographic_results,
+                    y=DataSchema.max_heart_rate,
+                    color_discrete_sequence=px.colors.qualitative.Vivid,
+                    title="Resting ECG - Max Heart Rate"
+                 )
+    fig.update_layout(
+        xaxis_title="Resting ECG",
+        yaxis_title="Max Heart Rate"
+    )
+
+    return fig

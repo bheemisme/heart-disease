@@ -16,7 +16,7 @@ def main() -> None:
 
     app.title = "Heart Disease Dashboard"
     app.layout = create_layout(app, data)
-    app.run(debug=True)
+    app.run(debug=True,port="8080")
 
 
 if __name__ == "__main__":

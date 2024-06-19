@@ -10,7 +10,12 @@ from src.components import (
     target_age,
     heart_rate_age,
     oldpeak_age,
-    angina_target
+    angina_target,
+    slope_target,
+    fbs_target,
+    fbs_thalach,
+    rcg_target,
+    rcg_thalach
 )
 
 
@@ -23,7 +28,6 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                 html.Nav(className="navbar", children=[
 
                     html.Span("Navbar", className="nav-item"),
-
                     html.Span("Navbar", className="nav-item"),
                     html.Span("Navbar", className="nav-item"),
                 ]),
@@ -39,8 +43,13 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                         chol_target.render(app, source),
                         heart_rate_age.render(app, source),
                         oldpeak_age.render(app, source),
-                        angina_target.render(app, source)
-                    ],className="d-flex flex-row flex-wrap")
+                        angina_target.render(app, source),
+                        slope_target.render(app, source),
+                        fbs_target.render(app, source),
+                        fbs_thalach.render(app, source),
+                        rcg_target.render(app, source),
+                        rcg_thalach.render(app, source)
+                    ], className="d-flex flex-row flex-wrap")
                 ])
 
             ])
