@@ -9,20 +9,17 @@ import plotly.graph_objects as go
 
 
 def plot_age_distribution(ds: DataSource) -> go.Figure:
-    
-
     fig = px.histogram(
-                        data_frame=ds.df, 
+                       data_frame=ds.df, 
                        x=DataSchema.age_group,
                        color_discrete_sequence=["#3cc389"],
                        histfunc="count",
-                       histnorm="density",
                        title="Age Distribution",
                        category_orders={
                            "age_group": ds.sorted_age_groups()
                        }
                     )
-    go.Histogram()
+    fig.update_layout(yaxis_title="No. of patients", xaxis_title="Age")
     return fig
 
 

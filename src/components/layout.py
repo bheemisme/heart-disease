@@ -34,12 +34,13 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                     html.Span("Navbar", className="nav-item"),
                 ]),
                 html.Div(className="chart-container d-flex flex-column align-items-center", children=[
-                    html.Div(className="d-flex flex-column align-items-center justify-content-center",
+                    html.Div(className="d-flex flex-row align-items-center",
                              children=[
-                                 age_dist.render(app, source)
+                                 age_dist.render(app, source),
+                                 gender_pie.render(app, source),
                              ]),
                     html.Div(children=[
-                        gender_pie.render(app, source),
+                        
                         disease_dist.render(app, source),
                         target_age.render(app, source),
                         heart_rate_age.render(app, source),
