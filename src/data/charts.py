@@ -3,27 +3,27 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from .source import DataSource
 from .loader import DataSchema
-from plotly.tools import mpl_to_plotly
 
 import plotly.express as px
 import plotly.graph_objects as go
 
 
 def plot_age_distribution(ds: DataSource) -> go.Figure:
-    sns.set_theme("notebook")
-    sns.set_style("darkgrid")
-    plt.title("Age Distribution")
-    g = sns.histplot(ds.df,
-                     x=DataSchema.age,
-                     color="g",
-                     bins=10,
-                     kde=True,
-                     stat="count",
-                     cumulative=False
-                     )
+    
 
-    fig = g.get_figure()
-    return mpl_to_plotly(fig, resize=True)  # type: ignore
+    fig = px.histogram(
+                        data_frame=ds.df, 
+                       x=DataSchema.age_group,
+                       color_discrete_sequence=["#3cc389"],
+                       histfunc="count",
+                       histnorm="density",
+                       title="Age Distribution",
+                       category_orders={
+                           "age_group": ds.sorted_age_groups()
+                       }
+                    )
+    go.Histogram()
+    return fig
 
 
 def plot_gender_pie_chart(ds: DataSource) -> go.Figure:
@@ -92,12 +92,12 @@ def plot_gender_cp(ds: DataSource) -> go.Figure:
 
 
 def plot_chol_target(ds: DataSource) -> go.Figure:
-    
+
     fig = px.violin(ds.df,
-           x=DataSchema.target,
-           y=DataSchema.cholestrol,
-           title="Target - Cholestrol"
-           )
+                    x=DataSchema.target,
+                    y=DataSchema.cholestrol,
+                    title="Target - Cholestrol"
+                    )
     fig.update_layout(xaxis_title="Target", yaxis_title="Cholestrol")
     return fig  # type: ignore
 
@@ -199,12 +199,12 @@ def plot_fbs_thalach(ds: DataSource) -> go.Figure:
 def plot_rcg_target(ds: DataSource) -> go.Figure:
 
     fig = px.histogram(ds.df,
-                 x=DataSchema.resting_electrocardiographic_results,
-                 color=DataSchema.target,
-                 color_discrete_sequence=px.colors.qualitative.Vivid,
-                 title="resting ECG - Target",
-                 barmode="group"
-                 )
+                       x=DataSchema.resting_electrocardiographic_results,
+                       color=DataSchema.target,
+                       color_discrete_sequence=px.colors.qualitative.Vivid,
+                       title="resting ECG - Target",
+                       barmode="group"
+                       )
     fig.update_layout(
         xaxis_title="Resting ECG",
         yaxis_title="No. of patients"
@@ -220,10 +220,51 @@ def plot_rcg_thalach(ds: DataSource) -> go.Figure:
                     y=DataSchema.max_heart_rate,
                     color_discrete_sequence=px.colors.qualitative.Vivid,
                     title="Resting ECG - Max Heart Rate"
-                 )
+                    )
     fig.update_layout(
         xaxis_title="Resting ECG",
         yaxis_title="Max Heart Rate"
     )
+
+    return fig
+
+
+def plot_alluvial1(ds: DataSource) -> go.Figure:
+
+    fig = px.parallel_categories(ds.df,
+                                 dimensions=["sex",
+                                             "age_group",
+                                             "target"],
+
+                                 color_continuous_scale=px.colors.sequential.Inferno,
+                                 labels={
+                                     "sex": "gender",
+                                     "age_group": "age"
+                                 },
+                                 
+
+                                 )
+
+    return fig
+
+
+def plot_alluvial2(ds: DataSource) -> go.Figure:
+
+    fig = px.parallel_categories(ds.df,
+                                 dimensions=[
+                                     "restecg",
+                                     "slope",
+                                     "ca",
+                                     "exang",
+                                     "target"
+                                 ],
+                                 color_continuous_scale=px.colors.sequential.Inferno,
+                                 labels={
+                                     "sex": "gender",
+                                     "age_group": "age"
+                                 },
+                                 
+
+                                 )
 
     return fig

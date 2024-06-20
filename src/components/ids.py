@@ -23,3 +23,12 @@ FBS_TARGET = "fbs-target"
 FBS_THALACH = "fbs-thalach"
 
 RCG_TARGET = "rcg-target"
+
+TARGET_AGE = "target-age"
+
+
+RCG_THALACH = "rcg-thalach"
+
+ALLUVIAL_ONE ="alluvial-one"
+
+ALLUVIAL_TWO ="alluvial-two"

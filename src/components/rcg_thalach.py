@@ -7,5 +7,5 @@ def render(app: Dash, source: DataSource) -> html.Div:
     
     return html.Div(
         dcc.Graph(figure=plot_rcg_thalach(source)),
-        id=ids.SLOPE_TARGET,
+        id=ids.RCG_THALACH,
         className="")
