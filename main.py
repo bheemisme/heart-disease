@@ -7,7 +7,9 @@ from src.data.source import DataSource
 import os
 
 PORT = os.environ['PORT']
-PORT = "8080"
+# PORT = "8080"
+if not PORT:
+    PORT = "80"
 DATA_PATH = "./data/data.csv"
 
 
@@ -19,7 +21,7 @@ def main() -> None:
 
     app.title = "Heart Disease Dashboard"
     app.layout = create_layout(app, data)
-    app.run(debug=True,port=PORT)
+    app.run(host="0.0.0.0",debug=True,port=PORT)
 
 
 if __name__ == "__main__":
