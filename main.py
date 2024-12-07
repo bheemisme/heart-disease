@@ -7,9 +7,6 @@ from src.data.source import DataSource
 import os
 
 PORT = os.environ['PORT']
-# PORT = "8080"
-if not PORT:
-    PORT = "80"
 DATA_PATH = "./data/data.csv"
 
 
