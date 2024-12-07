@@ -10,5 +10,6 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
     return html.Div(
         dcc.Graph(figure=plot_rcg_target(source)),
-        id=ids.RCG_TARGET
+        id=ids.RCG_TARGET,
+        className='w-50'
     )

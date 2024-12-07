@@ -10,5 +10,6 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
     return html.Div(
         dcc.Graph(figure=plot_gender_cp(source)),
-        id=ids.GENDER_CP
+        id=ids.GENDER_CP,
+        className="w-50"
     )

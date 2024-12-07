@@ -4,7 +4,7 @@ GENDER_PIE = "gender-pie"
 
 DISEASE_DIST = "disease-dist"
 
-AGE_CP = "age-cp"
+CHEST_PAIN = "chest-pain"
 
 GENDER_CP = "gender-cp"
 
@@ -12,11 +12,15 @@ CHOL_TARGET = "chol-target"
 
 HEART_RATE_AGE = "heart-rate-age"
 
+HEART_RATE = "heart-rate"
+
 OLDPEAK_AGE = "oldpeak-age"
 
 ANGINA_TARGET = "angina-target"
 
 SLOPE_TARGET = "slope-target"
+
+SLOPE_EXANG = "slope-exang"
 
 FBS_TARGET = "fbs-target"
 

@@ -8,4 +8,4 @@ def render(app: Dash, source: DataSource) -> html.Div:
     return html.Div(
         dcc.Graph(figure=plot_slope_target(source)),
         id=ids.SLOPE_TARGET,
-        className="")
+        className="w-50")

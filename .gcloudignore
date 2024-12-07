@@ -1,0 +1,17 @@
+__pycache__
+
+images
+
+/**/*.pth
+
+/**/*.json
+
+/**/*.pdf
+
+/**/*.ipynb
+
+LICENSE
+
+*.md
+
+.gitignore

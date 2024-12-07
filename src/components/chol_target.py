@@ -6,5 +6,8 @@ from . import ids
 
 def render(app: Dash, source: DataSource) -> html.Div:
 
-    return html.Div(dcc.Graph(figure=plot_chol_target(source)),
-        id=ids.CHOL_TARGET)
+    return html.Div(
+        dcc.Graph(figure=plot_chol_target(source)),
+        id=ids.CHOL_TARGET,
+        className='w-50'
+    )

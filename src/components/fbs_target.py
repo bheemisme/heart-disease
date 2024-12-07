@@ -10,5 +10,6 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
     return html.Div(
         dcc.Graph(figure=plot_fbs_target(source)),
-        id=ids.FBS_TARGET
+        id=ids.FBS_TARGET,
+        className="w-50"
     )
